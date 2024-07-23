@@ -1,0 +1,21 @@
+name: Test Soft Exit
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Always succeed step
+        run: echo "This step always succeeds"
+
+      - name: Step that might fail
+        run: exit 1
+        continue-on-error: true
+
+      - name: This step runs even if the previous step fails
+        run: echo "The job continues even if the previous step failed"
